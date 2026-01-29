@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ChangeEvent } from "react";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import axios from "axios";
 
@@ -9,8 +9,8 @@ function S3Upload() {
   const [file, setFile] = useState<File | null>(null);
   const [items, setItems] = useState([]);
 
-  const onFileChange = (event) => {
-    setFile(event.target.files[0]);
+  const onFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setFile(event.target.files?.[0] || null);
   };
 
   const onFileUpload = () => {
