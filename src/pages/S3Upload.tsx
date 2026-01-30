@@ -8,6 +8,8 @@ import axios from "axios";
 function S3Upload() {
   const [file, setFile] = useState<File | null>(null);
   const [items, setItems] = useState([]);
+  const API_URL = import.meta.env.VITE_API_URL;
+  console.log("API URL:", import.meta.env.VITE_API_URL);
 
   const onFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     setFile(event.target.files?.[0] || null);
@@ -18,7 +20,7 @@ function S3Upload() {
     const formData = new FormData();
     formData.append("file", file, file.name);
     console.log(file);
-    axios.post("http://localhost:3000/upload", formData);
+    axios.post(`${API_URL}/upload`, formData);
   };
 
   const fileData = () => {
@@ -43,7 +45,7 @@ function S3Upload() {
   useEffect(() => {
     async function getFiles() {
       try {
-        const res = await axios.get("http://localhost:3000/files");
+        const res = await axios.get(`${API_URL}/files`);
         setItems(res.data);
       } catch (err) {
         console.error(err);
